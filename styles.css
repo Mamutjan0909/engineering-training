@@ -9,6 +9,16 @@
     .hidden {
         display: none;
    }
+   .close-modal-button {
+    margin: 0;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: helvetica;
+    font-weight: bold;
+  }
     li:hover, li:active {
         background-color: #aaaaaa;
    }
