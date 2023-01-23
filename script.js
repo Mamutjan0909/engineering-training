@@ -6,8 +6,6 @@ console.log('modalButton', modalButton);
 modalButton.addEventListener('click', whenClicked);
 function whenClicked() {
   console.log('Clicked!');
+  modalContainer.classList.toggle('hidden');
 }
 
-modalButton.addEventListener('click', () => {
-  modalContainer.classList.toggle('hidden');
-});
