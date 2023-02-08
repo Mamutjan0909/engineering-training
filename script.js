@@ -10,6 +10,12 @@ const jiraLinks = [
   'https://totalwine.atlassian.net/browse/TT-18',
   'https://totalwine.atlassian.net/browse/TT-19',
 ];
+
+// eslint-disable-next-line no-unused-vars
+const iterateJiraLinks = jiraLinks.forEach((link) => {
+  console.log(link);
+});
+
 const jiraTitles = [
   'Create a public repository under your GitHub account',
   'Create a new script file, and import it into index.html and add a console log',
@@ -17,8 +23,12 @@ const jiraTitles = [
   'JavaScript: Event Listeners - Add Toggle Button Inside of Modal',
   'JavaScript: Functions - Write a function to toggle hidden class on modal',
 ];
-console.log('jiraTitles', jiraTitles);
-console.log('jiraLinks', jiraLinks);
+
+// eslint-disable-next-line no-unused-vars
+const iterateJiraTitles = jiraTitles.forEach((title) => {
+  console.log(title);
+});
+
 console.log('modalButton', modalButton);
 modalButton.addEventListener('click', whenClicked);
 closeModalButton[0].addEventListener('click', whenClicked);
