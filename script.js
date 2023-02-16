@@ -12,9 +12,9 @@ const jiraLinks = [
 ];
 
 // eslint-disable-next-line no-unused-vars
-const iterateJiraLinks = jiraLinks.forEach((link) => {
-  console.log(link);
-});
+//const iterateJiraLinks = jiraLinks.forEach((link) => {
+  //console.log(link);
+//});
 
 const jiraTitles = [
   'Create a public repository under your GitHub account',
@@ -25,9 +25,9 @@ const jiraTitles = [
 ];
 
 // eslint-disable-next-line no-unused-vars
-const iterateJiraTitles = jiraTitles.forEach((title) => {
-  console.log(title);
-});
+//const iterateJiraTitles = jiraTitles.forEach((title) => {
+  //console.log(title);
+//});
 
 console.log('modalButton', modalButton);
 modalButton.addEventListener('click', whenClicked);
@@ -37,12 +37,12 @@ function whenClicked() {
   modalContainer.classList.toggle('hidden');
 }
 
-const jiraObject = [];
+const jiraArray = [];
 for (let i = 0; i < jiraTitles.length; i++) {
-  jiraObject.push({
+  jiraArray.push({
     title: jiraTitles[i],
     link: jiraLinks[i],
   });
 }
 
-console.log('jiraObject', jiraObject);
+console.log('jiraArray', jiraArray);
