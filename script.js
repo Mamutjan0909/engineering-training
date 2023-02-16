@@ -40,9 +40,10 @@ function whenClicked() {
 const jiraArray = [];
 for (let i = 0; i < jiraTitles.length; i++) {
   jiraArray.push({
-    title: jiraTitles[i],
     link: jiraLinks[i],
+    title: jiraTitles[i],
   });
 }
 
 console.log('jiraArray', jiraArray);
+
