@@ -29,12 +29,20 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
   console.log(title);
 });
 
+function loadData() {
+  setTimeout(() => {
+    console.log("data loaded");
+  }
+  , 1000);
+}
+
 console.log('modalButton', modalButton);
 modalButton.addEventListener('click', whenClicked);
 closeModalButton[0].addEventListener('click', whenClicked);
 function whenClicked() {
   console.log('Clicked!');
   modalContainer.classList.toggle('hidden');
+  loadData();
 }
 
 const jiraObject = [];
