@@ -30,19 +30,32 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
 });
 
 function loadData() {
-  setTimeout(() => {
-    console.log("data loaded");
-  }
-  , 1000);
+  setTimeout(function () {
+    renderData();
+    console.log('data loaded');
+  }, 1000);
+}
+function renderData() {
+  jiraObject.forEach((object) => {
+    console.log(object);
+    var listItem = document.createElement('li');
+    listItem.innerHTML = `<li class="grid-item">
+    <i class="bi bi-check-circle-fill"></i><a href="${object.link}">${object.title}</a>`;
+    listElement[0].append(listItem);
+    modalContainer.classList.toggle('hidden');
+  });
 }
 
-console.log('modalButton', modalButton);
-modalButton.addEventListener('click', whenClicked);
+modalButton.addEventListener('click', function () {
+  console.log('Clicked Button!');
+  modalContainer.classList.toggle('hidden');
+  loadData();
+});
+
 closeModalButton[0].addEventListener('click', whenClicked);
 function whenClicked() {
   console.log('Clicked!');
   modalContainer.classList.toggle('hidden');
-  loadData();
 }
 
 const jiraObject = [];
@@ -54,13 +67,3 @@ for (let i = 0; i < jiraTitles.length; i++) {
 }
 
 var listElement = document.getElementsByClassName('grid-container');
-
-jiraObject.forEach((object) => {
-  console.log(object);
-  var listItem = document.createElement('li');
-  listItem.innerHTML = `<i class="bi bi-check-circle-fill">
-  <a href="${object.link}"/a>${object.title}</i>
-  `;
-  listElement[0].append(listItem);
-});
-console.log('jiraArray', jiraObject);
