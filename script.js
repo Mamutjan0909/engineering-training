@@ -31,19 +31,13 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
 
 function loadData() {
   setTimeout(function () {
-    renderData();
-    console.log('data loaded');
+    renderData().then((Response) => {
+      listElement[0].innerHTML = Response;
+      modalContainer.classList.toggle('hidden');
+      console.log('data loaded');
+      return Response;
+    });
   }, 1000);
-}
-function renderData() {
-  jiraObject.forEach((object) => {
-    console.log(object);
-    var listItem = document.createElement('li');
-    listItem.innerHTML = `<li class="grid-item">
-    <i class="bi bi-check-circle-fill"></i><a href="${object.link}">${object.title}</a>`;
-    listElement[0].append(listItem);
-    modalContainer.classList.toggle('hidden');
-  });
 }
 
 modalButton.addEventListener('click', function () {
@@ -67,3 +61,17 @@ for (let i = 0; i < jiraTitles.length; i++) {
 }
 
 var listElement = document.getElementsByClassName('grid-container');
+
+function renderData() {
+  return new Promise((resolve) => {
+    let response = '';
+    jiraObject.forEach((object) => {
+      response += `<li>
+            <i class="bi bi-x"></i>
+            <i class="bi bi-check-circle-fill"></i>
+            <a href="${object.link}">${object.title}</a>
+          </li>`;
+    });
+    resolve(response);
+  });
+}
