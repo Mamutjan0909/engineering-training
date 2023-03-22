@@ -31,11 +31,11 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
 
 function loadData() {
   setTimeout(function () {
-    renderData().then((Response) => {
-      listElement[0].innerHTML = Response;
+    renderData().then((response) => {
+      gridContainer[0].innerHTML = response;
       modalContainer.classList.toggle('hidden');
       console.log('data loaded');
-      return Response;
+      return response;
     });
   }, 1000);
 }
@@ -60,11 +60,12 @@ for (let i = 0; i < jiraTitles.length; i++) {
   });
 }
 
-var listElement = document.getElementsByClassName('grid-container');
+var gridContainer = document.getElementsByClassName('grid-container');
 
 function renderData() {
   return new Promise((resolve) => {
     let response = '';
+    console.log("jiraObject: ", jiraObject);
     jiraObject.forEach((object) => {
       response += `<li>
             <i class="bi bi-x"></i>
@@ -72,6 +73,7 @@ function renderData() {
             <a href="${object.link}">${object.title}</a>
           </li>`;
     });
+    console.log("jiraObjectafter: ", response);
     resolve(response);
   });
 }
