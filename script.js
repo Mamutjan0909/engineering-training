@@ -67,13 +67,13 @@ function renderData() {
     let response = '';
     console.log("jiraObject: ", jiraObject);
     jiraObject.forEach((object) => {
+      const { link, title } = object;
       response += `<li>
             <i class="bi bi-x"></i>
             <i class="bi bi-check-circle-fill"></i>
-            <a href="${object.link}">${object.title}</a>
+            <a href="${link}">${title}</a>
           </li>`;
     });
-    console.log("jiraObjectafter: ", response);
     resolve(response);
   });
 }
