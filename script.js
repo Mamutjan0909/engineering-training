@@ -29,9 +29,12 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
   console.log(title);
 });
 
+let dataLoaded = false;
+
 function loadData() {
   setTimeout(function () {
     renderData().then((response) => {
+      dataLoaded = true;
       gridContainer[0].innerHTML = response;
       modalContainer.classList.toggle('hidden');
       console.log('data loaded');
@@ -41,6 +44,9 @@ function loadData() {
 }
 
 modalButton.addEventListener('click', function () {
+  if (dataLoaded === true) {
+    return;
+  }
   console.log('Clicked Button!');
   modalContainer.classList.toggle('hidden');
   loadData();
@@ -65,7 +71,7 @@ var gridContainer = document.getElementsByClassName('grid-container');
 function renderData() {
   return new Promise((resolve) => {
     let response = '';
-    console.log("jiraObject: ", jiraObject);
+    console.log('jiraObject: ', jiraObject);
     jiraObject.forEach((object) => {
       const { link, title } = object;
       response += `<li>
