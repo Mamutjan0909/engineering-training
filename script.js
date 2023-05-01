@@ -85,6 +85,3 @@ for (let i = 0; i < jiraTitles.length; i++) {
     title: jiraTitles[i],
   });
 }
-
-
-
