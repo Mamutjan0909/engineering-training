@@ -36,17 +36,27 @@ class JiraHandler {
   constructor(links, titles) {
     this.links = links;
     this.titles = titles;
+    this.jirasObject = [];
+    this.createJiraObject();
+  }
+  createJiraObject() {
+    for (let i = 0; i < this.titles.length; i++) {
+      this.jirasObject.push({
+        link: this.links[i],
+        title: this.titles[i],
+      });
+    }
   }
 }
 
-const jiraHandler =new JiraHandler(jiraLinks, jiraTitles);
+const jiraHandler = new JiraHandler(jiraLinks, jiraTitles);
 
 const utils = {
-  renderData: function() {
+  renderData: function () {
     return new Promise((resolve) => {
       let response = '';
-      console.log('jiraObject: ', jiraObject);
-      jiraObject.forEach((object) => {
+      console.log('jiraObject: ', jirasObject);
+      jirasObject.forEach((object) => {
         const { link, title } = object;
         response += `<li>
               <i class="bi bi-x"></i>
@@ -56,9 +66,9 @@ const utils = {
       });
       resolve(response);
     });
-   },
+  },
 
-  loadData: function() {
+  loadData: function () {
     setTimeout(function () {
       utils.renderData().then((response) => {
         dataLoaded = true;
@@ -68,8 +78,8 @@ const utils = {
         return response;
       });
     }, 1000);
-  }
-}
+  },
+};
 
 modalButton.addEventListener('click', function () {
   if (dataLoaded === true) {
@@ -86,9 +96,9 @@ function whenClicked() {
   modalContainer.classList.toggle('hidden');
 }
 
-const jiraObject = [];
+const jirasObject = [];
 for (let i = 0; i < jiraHandler.titles.length; i++) {
-  jiraObject.push({
+  jirasObject.push({
     link: jiraHandler.links[i],
     title: jiraHandler.titles[i],
   });
