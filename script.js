@@ -16,6 +16,8 @@ const iterateJiraLinks = jiraLinks.forEach((link) => {
   console.log(link);
 });
 
+const jiraTemplate = { icon: 'bi bi-check-circle-fill' };
+
 const jiraTitles = [
   'Create a public repository under your GitHub account',
   'Create a new script file, and import it into index.html and add a console log',
@@ -44,6 +46,7 @@ class JiraHandler {
       this.jirasObject.push({
         link: this.links[i],
         title: this.titles[i],
+        ...jiraTemplate,
       });
     }
   }
@@ -57,10 +60,9 @@ const utils = {
       let response = '';
       console.log('jiraObject: ', jirasObject);
       jirasObject.forEach((object) => {
-        const { link, title } = object;
+        const { link, title, icon } = object;
         response += `<li>
-              <i class="bi bi-x"></i>
-              <i class="bi bi-check-circle-fill"></i>
+            <i class="${icon}"></i>
               <a href="${link}">${title}</a>
             </li>`;
       });
