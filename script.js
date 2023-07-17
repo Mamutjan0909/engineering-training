@@ -103,5 +103,6 @@ for (let i = 0; i < jiraHandler.titles.length; i++) {
   jirasObject.push({
     link: jiraHandler.links[i],
     title: jiraHandler.titles[i],
+    ...jiraTemplate,
   });
 }
