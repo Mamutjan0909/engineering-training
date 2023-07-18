@@ -1,5 +1,5 @@
 console.log('Engineer Training!');
-
+let dataLoaded = false;
 const modalButton = document.getElementById('modalButton');
 const modalContainer = document.getElementById('modalContainer');
 const closeModalButton = document.getElementsByClassName('close-modal-button');
@@ -43,8 +43,6 @@ const iterateJiraTitles = jiraTitles.forEach((title) => {
 });
 
 var gridContainer = document.getElementsByClassName('grid-container');
-
-let dataLoaded = false;
 class JiraHandler {
   constructor(links, titles) {
     this.links = links;
@@ -66,6 +64,20 @@ class JiraHandler {
 
 const jiraHandler = new JiraHandler(jiraLinks, jiraTitles);
 
+function initModalButton() {
+
+  modalButton.addEventListener('click', function () {
+    if (dataLoaded === true) {
+      return;
+    }
+    console.log('Clicked Button!');
+    modalContainer.classList.toggle('hidden');
+    utils.loadData(() => {
+      dataLoaded = true;
+    });
+  });
+}
+
 const utils = {
   renderData: function () {
     return new Promise((resolve) => {
@@ -82,7 +94,8 @@ const utils = {
     });
   },
 
-  loadData: function () {
+  loadData: function (callback) {
+    callback();
     setTimeout(function () {
       utils.renderData().then((response) => {
         dataLoaded = true;
@@ -94,15 +107,6 @@ const utils = {
     }, 1000);
   },
 };
-
-modalButton.addEventListener('click', function () {
-  if (dataLoaded === true) {
-    return;
-  }
-  console.log('Clicked Button!');
-  modalContainer.classList.toggle('hidden');
-  utils.loadData();
-});
 
 closeModalButton[0].addEventListener('click', whenClicked);
 function whenClicked() {
@@ -119,3 +123,5 @@ for (let i = 0; i < jiraHandler.titles.length; i++) {
     ...icon,
   });
 }
+console.log("dataLoaded", dataLoaded);
+initModalButton();
