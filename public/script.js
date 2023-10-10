@@ -5,70 +5,10 @@
   const modalContainer = document.getElementById('modalContainer');
   const closeModalButton =
     document.getElementsByClassName('close-modal-button');
-  const jiraLinks = [
-    'https://totalwine.atlassian.net/browse/TT-2',
-    'https://totalwine.atlassian.net/browse/TT-16',
-    'https://totalwine.atlassian.net/browse/TT-17',
-    'https://totalwine.atlassian.net/browse/TT-18',
-    'https://totalwine.atlassian.net/browse/TT-19',
-  ];
-
-  // eslint-disable-next-line no-unused-vars
-  const iterateJiraLinks = jiraLinks.forEach((link) => {
-    console.log(link);
-  });
-
-  const jiraTemplate = { icon: 'bi bi-check-circle-fill' };
-
-  const errorJiraTemplate = { icon: 'bi bi-x-circle' };
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
-  function getIcon() {
-    let rNum = getRandomInt(3);
-    return rNum >= 1 ? jiraTemplate : errorJiraTemplate;
-  }
-
-  const jiraTitles = [
-    'Create a public repository under your GitHub account',
-    'Create a new script file, and import it into index.html and add a console log',
-    'JavaScript: Variables',
-    'JavaScript: Event Listeners - Add Toggle Button Inside of Modal',
-    'JavaScript: Functions - Write a function to toggle hidden class on modal',
-  ];
-
-  // eslint-disable-next-line no-unused-vars
-  const iterateJiraTitles = jiraTitles.forEach((title) => {
-    console.log(title);
-  });
-
-  var gridContainer = document.getElementsByClassName('grid-container');
-  class JiraHandler {
-    constructor(links, titles) {
-      this.links = links;
-      this.titles = titles;
-      this.jirasObject = [];
-      this.createJiraObject();
-    }
-    createJiraObject() {
-      for (let i = 0; i < this.titles.length; i++) {
-        let icon = getIcon();
-        this.jirasObject.push({
-          link: this.links[i],
-          title: this.titles[i],
-          ...icon,
-        });
-      }
-    }
-  }
-
-  const jiraHandler = new JiraHandler(jiraLinks, jiraTitles);
+  const gridContainer = document.getElementsByClassName('grid-container');
 
   function initModalButton() {
     return new Promise((resolve) => {
-      var dataLoaded = false;
       modalButton.addEventListener('click', function () {
         modalContainer.classList.toggle('hidden');
         console.log('Clicked Button!');
@@ -83,35 +23,36 @@
   }
 
   const utils = {
-    renderData: function () {
+    renderData: function (data) {
       return new Promise((resolve) => {
         let response = '';
-        console.log('jiraObject: ', jirasObject);
-        jirasObject.forEach((object) => {
+        console.log('jiraObject: ', data);
+        data.jirasObject.forEach((object) => {
           const { link, title, icon } = object;
-          response += `<li>
-            <i class="${icon}"></i>
-              <a href="${link}">${title}</a>
+          response += `<li class="item">
+              <a href= ${link}> 
+              <i class="${icon}"></i> 
+              ${title} 
+              </a>
             </li>`;
         });
         resolve(response);
       });
     },
-
     loadData: async function (callback) {
       const response = await fetch('/getJiraTickets');
       const data = await response.json();
       console.log('data', data);
 
-      setTimeout(function () {
-        utils.renderData().then((response) => {
+      this.renderData(data).then((response) => {
+        setTimeout(() => {
           dataLoaded = true;
           gridContainer[0].innerHTML = response;
           modalContainer.classList.toggle('hidden');
           console.log('data loaded');
           return response;
-        });
-      }, 1000);
+        }, 3000);
+      });
       callback();
     },
   };
@@ -121,17 +62,6 @@
     console.log('Clicked!');
     modalContainer.classList.toggle('hidden');
   }
-
-  const jirasObject = [];
-  for (let i = 0; i < jiraHandler.titles.length; i++) {
-    let icon = getIcon();
-    jirasObject.push({
-      link: jiraHandler.links[i],
-      title: jiraHandler.titles[i],
-      ...icon,
-    });
-  }
-  console.log('dataLoaded', dataLoaded);
   console.log('BEFORE initModalButton is called');
   await initModalButton();
   console.log('AFTER initModalButton is called');
