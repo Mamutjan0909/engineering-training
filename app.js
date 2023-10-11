@@ -3,7 +3,7 @@ const path = require('path');
 const dataHandler = require('./dataHandler');
 const router = express.Router();
 const app = express();
-const port = 3000;
+const port = 3030;
 
 router.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));

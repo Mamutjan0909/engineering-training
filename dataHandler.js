@@ -1,3 +1,24 @@
+const { Octokit } = require("@octokit/rest");
+require('dotenv').config();
+const octokit = new Octokit({ 
+    auth: process.env.GITHUB_TOKEN,
+    baseUrl: 'https://api.github.com',
+    log: {
+        debug: () => {},
+        info: () => {},
+        warn: console.warn,
+        error: console.error
+    },
+    request: {
+        agent: undefined,
+        fetch: undefined,
+        timeout: 0
+    }
+});
+octokit.rest.repos.listCommits({
+    owner : "mamutjan0909",
+    repo : "engineering-training",
+  }).then(resp => console.log(resp));
 const jiraLinks = [
   'https://totalwine.atlassian.net/browse/TT-2',
   'https://totalwine.atlassian.net/browse/TT-16',
@@ -27,7 +48,7 @@ function getIcon() {
   return rNum >= 1 ? jiraTemplate : errorJiraTemplate;
 }
 
-class JiraHandler {
+class DataHandler {
   constructor(links, titles) {
     this.links = links;
     this.titles = titles;
@@ -46,6 +67,6 @@ class JiraHandler {
   }
 }
 
-const dataHandler = new JiraHandler(jiraLinks, jiraTitles);
+const dataHandler = new DataHandler(jiraLinks, jiraTitles);
 
 module.exports = dataHandler;
