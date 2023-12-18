@@ -47,7 +47,7 @@ class DataHandler {
     this.titles = titles;
     this.jirasObject = [];
     this.createJiraObject();
-    // this.fetchGitHubData();
+    this.fetchGitHubData();
   }
   createJiraObject() {
     for (let i = 0; i < this.titles.length; i++) {
@@ -61,6 +61,7 @@ class DataHandler {
   }
 
   fetchGitHubData() {
+    let jirasArray =[];
     return new Promise((resolve) => {
 
       const octokit = new Octokit({
@@ -73,7 +74,14 @@ class DataHandler {
       .then((response) => {
         for (let index = 0; index < 20; index++) {
         console.log("Commit Message: ", response.data[index].commit.message);
+        const regex = /([A-Z][A-Z0-9]+-[0-9]+)/g;
+const jiraNumber = response.data[index].commit.message.match(regex);
+console.log(jiraNumber[0]);
+if (jiraNumber != null && jiraNumber[0] && jirasArray.indexOf(jiraNumber[0]) == -1) {
+  jirasArray.push(jiraNumber[0]);
+}
         }
+        console.log(jirasArray);
       });
       resolve();
     });
